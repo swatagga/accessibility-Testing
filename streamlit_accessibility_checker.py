@@ -4,7 +4,6 @@ import groq
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from axe_selenium_python import Axe
-import time
 
 # ========== CONFIGURATION ==========
 GROQ_API_KEY = "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"
