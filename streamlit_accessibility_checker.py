@@ -7,8 +7,8 @@ from axe_selenium_python import Axe
 import time
 
 # ========== CONFIGURATION ==========
-GROQ_API_KEY = "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"
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_API_KEY = "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"
+GROQ_MODEL = "llama3-8b-8192"
                 
 # ========== SETUP STREAMLIT UI ==========
 st.set_page_config(page_title="AI-Powered Accessibility Scanner", layout="wide")
@@ -50,7 +50,7 @@ def run_accessibility_scan(target_url):
 
             Your goal is to:
             1. Detect and explain any accessibility problems.
-            2. Provide WCAG-compliant code-level fixes.
+            2. Provide WCAG-compliant or ADA-compliant code-level fixes.
             3. Return:
                a. A brief summary of issues found
                b. A list of recommended fixes
@@ -61,7 +61,7 @@ def run_accessibility_scan(target_url):
 
             try:
                 response = client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
+                    model="llama3-8b-8192",
                     messages=[
                         {"role": "system", "content": prompt},
                         {"role": "user", "content": f"Fix accessibility issue for element: {html_element}"}

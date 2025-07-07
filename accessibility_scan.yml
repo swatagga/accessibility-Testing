@@ -1,0 +1,57 @@
+name: Accessibility Scan
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  accessibility-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Accessibility Testing Tools
+      run: |
+        npm install -g axe-core pa11y
+
+    - name: Run Axe-Core Accessibility Scan
+      run: axe . --json > accessibility_report.json || true
+
+    - name: Run Pa11y Accessibility Scan
+      run: pa11y --json . > pa11y_report.json || true
+
+    - name: Upload Accessibility Reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: accessibility-reports
+        path: accessibility_report.json
+
+    - name: AI-Powered Accessibility Fixes (Groq LLM)
+      run: /code_accessibility_check.py  # This script applies AI-generated accessibility fixes.
+
+    - name: Create GitHub Issues for Violations
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const accessibilityReport = JSON.parse(fs.readFileSync('accessibility_report.json', 'utf8'));
+          accessibilityReport.violations.forEach(issue => {
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Accessibility Issue: ${issue.description}`,
+              body: `WCAG Rule: ${issue.id}\nAffected Code: ${issue.nodes[0].html}\nSuggested Fix: ${issue.help}`,
+              labels: ['accessibility', 'compliance']
+            });
+          });
