@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.service import Service
 from axe_selenium_python import Axe
 
 # ========== CONFIGURATION ==========
-GROQ_API_KEY = "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"
+GROQ_API_KEY = "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"
 GROQ_MODEL = "llama3-8b-8192"
                 
 # ========== SETUP STREAMLIT UI ==========
