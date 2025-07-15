@@ -1,4 +1,6 @@
-axe-selenium-python==2.1.6
-groq==0.26.0
-selenium==4.33.0
+streamlit
+selenium
+beautifulsoup4
+requests
+lxml
 webdriver-manager
