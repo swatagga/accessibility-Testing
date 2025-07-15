@@ -6,3 +6,5 @@ requests
 lxml
 webdriver-manager
 axe_selenium_python
+pychrome
+chromium
