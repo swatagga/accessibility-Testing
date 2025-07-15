@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.service import Service
 from axe_selenium_python import Axe
 
 # ========== CONFIGURATION ==========
-GROQ_API_KEY = "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"
+GROQ_API_KEY = "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"
 GROQ_MODEL = "llama3-8b-8192"
                 
 # ========== SETUP STREAMLIT UI ==========
@@ -27,6 +27,8 @@ def run_accessibility_scan(target_url):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+
+    chrome_options.binary_location = "/usr/bin/google-chrome"
 
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -112,4 +114,3 @@ if run_scan and url:
             file_name="accessibility_fixes.json",
             mime="application/json"
         )
-
